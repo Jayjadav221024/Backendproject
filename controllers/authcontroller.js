@@ -67,7 +67,7 @@ module.exports.loginUser = async function (req, res) {
     return res.redirect('/shop')
     }
     else{
-      req.flash("error", "Password wrong");
+      req.flash("error", "Password wrongg");
       return res.redirect("/");
     }
   });
