@@ -4,29 +4,50 @@ const jwt = require("jsonwebtoken");
 const { genrateToken } = require("../utils/genrateToken");
 
 module.exports.registeruser = async function (req, res) {
+
   try {
+
     let { email, password, fullname } = req.body;
 
-    let user = await userModel.findOne({ email: email });
-    if (user) return res.status(401).send("user alredy exsist");
+    let user = await userModel.findOne({ email });
+
+    if (user) {
+      req.flash("error", "User already exists");
+      return res.redirect("/");
+    }
 
     bcrypt.genSalt(10, function (err, salt) {
+
       bcrypt.hash(password, salt, async function (err, hash) {
-        if (err) return res.send(err.message);
-        else {
-          let user = await userModel.create({
-            email,
-            fullname,
-            password: hash,
-          });
-          let token = genrateToken(user);
-          res.cookie("token",token);
+
+        if (err) {
+          return res.send(err.message);
         }
+
+        let user = await userModel.create({
+          email,
+          fullname,
+          password: hash,
+        });
+
+        let token = genrateToken(user);
+
+        res.cookie("token", token);
+
+        return res.redirect("/shop");
+
       });
+
     });
+
   } catch (err) {
-    console.log(err.message);
+
+    console.log(err);
+
+    return res.send(err.message);
+
   }
+
 };
 
 module.exports.loginUser = async function (req, res) {
