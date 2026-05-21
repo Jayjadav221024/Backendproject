@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        @font-face {
+            font-family: 'HelveticaNow';
+            src: url('/fonts/HelveticaNowDisplay-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'HelveticaNow', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="w-full flex justify-between px-5 py-3">
+        <a href="/">Scatch</a>
+
+<%  var loggedin = typeof  loggedin !== 'undefined' ? loggedin : true  %>
+ 
+<% if(loggedin) {  %>
+ <div class="flex gap-5">
+            <a href="/shop">Shop</a>
+            <a href="/cart">Cart</a>
+            <a href="/cart">My Account</a>
+            <a href="/users/logout" class="text-red-600">Logout</a>
+        </div>
+<%} %>
+        
+    </nav>
+</body>
+
+</html>
